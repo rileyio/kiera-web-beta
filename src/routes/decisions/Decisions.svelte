@@ -5,6 +5,7 @@
 	import { Decision } from '$lib/objects/decision';
 	import { clipboard } from '@skeletonlabs/skeleton';
 	import { goto } from '$app/navigation';
+	import { push } from 'svelte-spa-router';
 
 	let isLoading = true;
 	let data = [] as Array<Decision>;
@@ -35,7 +36,7 @@
 						<div class="edit-button-wrapper">
 							<button
 								class="btn bg-gradient-to-br variant-gradient-tertiary-secondary edit"
-								on:click={() => editDecision(decision._id)}
+								on:click={() => push(`/decision/${decision._id}`)}
 							>
 								<Icon icon="line-md:pencil-twotone-alt" width="24" height="24" class="mr-1" />
 								Edit

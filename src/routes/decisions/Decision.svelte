@@ -3,8 +3,8 @@
 	import * as API from '$lib/api';
 	import { onMount } from 'svelte';
 	import { Decision } from '$lib/objects/decision';
-	import { page } from '$app/stores';
 	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
+	import { params } from 'svelte-spa-router';
 
 	// Transition
 	import { fade } from 'svelte/transition';
@@ -18,7 +18,7 @@
 
 	onMount(async () => {
 		isLoading = true;
-		const res = await API.getDecision($page.params.id);
+		const res = await API.getDecision($params.id);
 
 		if (res) decision = res;
 
