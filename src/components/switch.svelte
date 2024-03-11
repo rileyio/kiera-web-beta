@@ -1,4 +1,4 @@
-<script src="ts">
+<script lang="ts">
 	import { SlideToggle } from '@skeletonlabs/skeleton';
 	import Icon from '@iconify/svelte';
 

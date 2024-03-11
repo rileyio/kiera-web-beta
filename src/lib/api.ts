@@ -1,4 +1,4 @@
-import API from '$lib/endpoints';
+import API from './endpoints';
 import { Decision } from './objects/decision.js';
 import axios, { type AxiosResponse } from 'axios';
 import { getSessionHeaders } from './session.js';

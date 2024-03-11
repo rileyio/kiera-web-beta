@@ -1,24 +1,29 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import * as API from '$lib/api';
-	import { onMount } from 'svelte';
-	import { Decision } from '$lib/objects/decision';
+	import * as API from '../../lib/api';
+	import { onMount, tick } from 'svelte';
+	import { Decision } from '../../lib/objects/decision';
 	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
-	import { params } from 'svelte-spa-router';
+	import { DataHandler } from '@vincjo/datatables';
 
 	// Transition
 	import { fade } from 'svelte/transition';
 
 	// Custom Components
-	import Input from '$lib/../components/input.svelte';
-	import Switch from '$lib/../components/switch.svelte';
+	import Input from '../../components/input.svelte';
+	import Switch from '../../components/switch.svelte';
 
-	let isLoading = true;
-	let decision: Decision = new Decision();
+	export let params = { id: '' };
+	export let isLoading = true;
+	export let decision: Decision = new Decision();
+	const handler = new DataHandler([], { rowsPerPage: 5 });
+	const rows = handler.getRows();
 
 	onMount(async () => {
 		isLoading = true;
-		const res = await API.getDecision($params.id);
+
+		await tick();
+		const res = await API.getDecision(params.id);
 
 		if (res) decision = res;
 
@@ -86,22 +91,27 @@
 				<header>
 					<h5 class="h5">Outcomes</h5>
 				</header>
-				<dl class="list-dl">
-					{#if decision.options.length}
-						{#each decision.options as outcome}
-							<div>
-								<span class="badge-icon p-4 variant-soft-secondary">
-									<span class="fa-solid fa-book">🎲</span>
-								</span>
-								<span class="flex-auto text-left">
-									<dt class="font-bold">{outcome.text}</dt>
-									<dd class="text-sm opacity-50">{outcome.type}</dd>
-								</span>
-								<span>⋮</span>
-							</div>
-						{/each}
-					{/if}
-				</dl>
+
+				<div class="table-container space-y-4">
+					<table class="table table-hover table-compact table-auto w-full">
+						<thead>
+							<tr>
+								<td>Result</td>
+								<td>Type</td>
+							</tr>
+						</thead>
+						<tbody>
+							{#if decision.options.length}
+								{#each decision.options as outcome}
+									<tr>
+										<td>{outcome.text}</td>
+										<td>{outcome.type}</td>
+									</tr>
+								{/each}
+							{/if}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		{/if}
 	</div>

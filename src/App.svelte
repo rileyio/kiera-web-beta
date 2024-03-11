@@ -17,7 +17,7 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	// Nav
-	import { navigating } from '$app/stores';
+	// import { navigating } from '$app/stores';
 	let currentTile: number = -1;
 
 	// Icons

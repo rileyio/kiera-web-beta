@@ -1,10 +1,9 @@
 <script lang="ts">
-	import * as API from '$lib/api';
+	import * as API from '../../lib/api';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
-	import { Decision } from '$lib/objects/decision';
+	import { Decision } from '../../lib/objects/decision';
 	import { clipboard } from '@skeletonlabs/skeleton';
-	import { goto } from '$app/navigation';
 	import { push } from 'svelte-spa-router';
 
 	let isLoading = true;
@@ -20,10 +19,6 @@
 
 		isLoading = false;
 	});
-
-	function editDecision(id: string) {
-		goto(`/decisions/${id}`, { replaceState: true });
-	}
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
